@@ -1,13 +1,12 @@
 # Sistema de Inventario y Ventas Multi-sucursal
 
-![Tests](https://github.com/TU-USUARIO/inventario-multisucursal/actions/workflows/tests.yml/badge.svg)
+![Tests](https://github.com/aeygasparr-creator/inventario-multisucursal/actions/workflows/tests.yml/badge.svg)
 
 API backend con FastAPI + PostgreSQL para gestionar inventario, transferencias
 entre sucursales, compras a proveedores y ventas de una cadena de tiendas,
 con reportes pensados para conectar con Power BI.
 
-> Sustituye `TU-USUARIO` en el badge de arriba por tu usuario de GitHub una
-> vez que subas el repositorio, para que se vea el estado real de los tests.
+
 
 ## Funcionalidades
 
