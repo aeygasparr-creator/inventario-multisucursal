@@ -1,0 +1,56 @@
+name: Tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    # Postgres real, no un mock: los tests dependen de comportamiento
+    # específico de Postgres (SELECT ... FOR UPDATE, UUID, savepoints).
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_USER: inventario_user
+          POSTGRES_PASSWORD: changeme
+          POSTGRES_DB: inventario_db
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U inventario_user -d inventario_db"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 5
+
+    env:
+      POSTGRES_USER: inventario_user
+      POSTGRES_PASSWORD: changeme
+      POSTGRES_DB: inventario_db
+      DATABASE_URL: postgresql://inventario_user:changeme@localhost:5432/inventario_db
+      SECRET_KEY: github-actions-test-secret-key
+      ALGORITHM: HS256
+      ACCESS_TOKEN_EXPIRE_MINUTES: 60
+
+    steps:
+      - name: Clonar el repositorio
+        uses: actions/checkout@v4
+
+      - name: Configurar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: "pip"
+
+      - name: Instalar dependencias
+        run: pip install -r requirements.txt
+
+      - name: Aplicar migraciones de Alembic
+        run: alembic upgrade head
+
+      - name: Correr tests con pytest
+        run: pytest -v
