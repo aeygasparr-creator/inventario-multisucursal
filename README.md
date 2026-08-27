@@ -86,11 +86,12 @@ docker compose exec api pytest -v
 docker compose logs -f api
 ```
 
-## Panel de administración (React)
+## Panel de administración (React) — Mastermind_Core
 
-Este repositorio incluye también un panel visual en `frontend/`, hecho en
-React + TypeScript, con la misma estética oscura del Swagger. Instrucciones
-completas en `frontend/README.md`; en resumen:
+Este repositorio incluye también un panel visual en `frontend/`, llamado
+**Mastermind_Core**, hecho en React + TypeScript con una estética de consola
+en rojo, negro y dorado (independiente del tema cian que se dejó en Swagger).
+Instrucciones completas en `frontend/README.md`; en resumen:
 
 ```
 cd frontend
